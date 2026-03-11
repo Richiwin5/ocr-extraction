@@ -17,6 +17,7 @@ from app.ocr.extractors import (
 
 logger = logging.getLogger(__name__)
 
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 class OCRAnalyticsEngine:
     """Main OCR Engine that handles different document types"""
     

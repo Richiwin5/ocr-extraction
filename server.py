@@ -5,9 +5,13 @@ import os
 import uuid
 import shutil
 from app.ocr.ocr_engine import extract_text
+from flask_cors import CORS
 
 # Initialize Flask app
+
 app = Flask(__name__)
+CORS(app)  # <-- enable CORS for all endpoints
+
 
 # Configuration
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size

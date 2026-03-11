@@ -1,3 +1,4 @@
+# app/ocr/ocr_engine.py
 import cv2
 import pytesseract
 import os
@@ -14,10 +15,9 @@ from app.ocr.extractors import (
     DriversLicenseExtractor
 )
 
+
 logger = logging.getLogger(__name__)
 
-# Tell pytesseract where Tesseract is installed
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 class OCRAnalyticsEngine:
     """Main OCR Engine that handles different document types"""
     

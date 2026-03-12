@@ -18,6 +18,13 @@ from app.ocr.extractors import (
 
 logger = logging.getLogger(__name__)
 
+if os.path.exists('/usr/bin/tesseract'):
+    pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+    logger.info(f"Tesseract found at: /usr/bin/tesseract")
+else:
+    logger.warning("Tesseract not found at /usr/bin/tesseract")
+
+
 class OCRAnalyticsEngine:
     """Main OCR Engine that handles different document types"""
     

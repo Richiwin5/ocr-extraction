@@ -4,13 +4,46 @@ from werkzeug.utils import secure_filename
 import os
 import uuid
 import shutil
+import logging
+import sys
 from app.ocr.ocr_engine import extract_text
 from flask_cors import CORS
 
-# Initialize Flask app
+
 
 app = Flask(__name__)
-CORS(app)  # <-- enable CORS for all endpoints
+CORS(app) 
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Fix for Render - Make sure Tesseract is found
+try:
+    import pytesseract
+    import subprocess
+    
+    # Check if tesseract is in PATH
+    try:
+        result = subprocess.run(['which', 'tesseract'], capture_output=True, text=True)
+        if result.returncode == 0:
+            tesseract_path = result.stdout.strip()
+            pytesseract.pytesseract.tesseract_cmd = tesseract_path
+            logger.info(f" Tesseract found at: {tesseract_path}")
+            
+            # Test Tesseract
+            version = subprocess.check_output(['tesseract', '--version'], text=True)
+            logger.info(f" Tesseract version: {version.split(chr(10))[0]}")
+        else:
+            logger.error(" Tesseract not found in PATH")
+    except Exception as e:
+        logger.error(f" Error finding Tesseract: {e}")
+        
+except ImportError as e:
+    logger.error(f"pytesseract import error: {e}")
+# Initialize Flask app
+
+
 
 
 # Configuration

@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
-# render-build.sh
+# render-build.sh - This runs during Render deployment
 
-echo "Starting Render build process..."
+echo "🚀 Starting Render build process..."
+echo "Current directory: $(pwd)"
+echo "Listing files:"
+ls -la
 
-# Install system dependencies for OCR
+echo "📦 Installing system dependencies..."
 apt-get update
 apt-get install -y tesseract-ocr
 apt-get install -y tesseract-ocr-eng
-apt-get install -y libgl1-mesa-glx  # For OpenCV
-apt-get install -y libglib2.0-0     # For OpenCV
+apt-get install -y libgl1-mesa-glx
+apt-get install -y libglib2.0-0
 
-# Verify installations
+echo "✅ System dependencies installed"
 echo "Tesseract version:"
 tesseract --version
 
-echo "Python packages:"
+echo "📦 Installing Python dependencies..."
 pip install -r requirements.txt
 
-echo "Build complete!"
+echo "✅ Build complete!"
